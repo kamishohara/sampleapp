@@ -1,0 +1,103 @@
+<script type="text/javascript" src="jquery-3.4.0.min.js"></script>
+<%# <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<%= form_for :rakuten_search, method: :get do  %>
+  <%= label_tag :keyword, 'キーワード検索' %>
+  <%= text_field_tag 'keyword', params[:keyword] %>
+  <%= submit_tag "検索" %>
+  <% end %>
+
+  <form>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="validationDefault01">キーワード検索</label>
+      <input type="text" class="form-control" id="validationDefault01" placeholder="items" value="Mark" required>
+    </div>
+    <div class="col-md-1 mb-3">
+      <label for="validationDefaultUsername">硬貨選択</label>
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>＄</option>
+        <option>€</option>
+        <option>£</option>
+      </select>
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="validationDefault02">現地価格</label>
+      <input type="text" class="form-control" id="validationDefault02" placeholder="price" value="Otto" required>
+    </div>
+
+  </div>
+  <button class="btn btn-primary" type="submit">search</button>
+</form>
+
+<%= link_to '為替レート', items_kawase_path %>
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+<div class="form-group">
+   <label for="exampleFormControlSelect1">硬貨選択</label>
+   <select class="form-control" id="exampleFormControlSelect1">
+     <option>＄</option>
+     <option>€</option>
+     <option>£</option>
+   </select>
+ </div>
+
+</div>
+</div>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>画像</th>
+      <th>商品名</th>
+      <th>価格</th>
+    </tr>
+  </thead>
+  <tbody>
+  <div class="items">
+  <% if @items.present? %>
+  <% i = 1 %>
+  <div class="container">
+    <div class="row">
+      <form class="" action="/save" method="post">
+              <% @items.each do |item| %>
+        <div class="col-sm-3">
+         <!-- <button id="button" onclick="setlocalStorage()">保存</button> -->
+            <!-- <div class="container"></div> -->
+            <div class="card border-secondary" style="width: 14rem;">
+              <img class="card-img-top" src="<%= item['mediumImageUrls'][0] %>" alt="Card image cap">
+              <div class="card-body"><p class="card-text"><a href="<%= item['itemUrl'] %>" target="_blank"><%= item['shopName'] %></a></p>
+              <%= item['itemPrice'] %>円
+              <%= hidden_field :price, :value => item['itemPrice'] %>
+              <%= check_box_tag :check, :value => item['itemUrl'] %>
+              <%# <input type="checkbox" name="thisusit" id="check" value=<%= item['itemPrice'] %>> %>
+
+              <div class="form-check">
+              <input class="form-check-input position-static" onchange="myfunc" name="chk_sample" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+              </div>
+                      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              </div>
+            </div>
+        </div>
+
+
+      <% end %>
+      <input type="submit" name="akshfla" value="almf;dj">
+    </form>
+    </div>
+  </div>
+  <% end %>
+    </div>
+  </tbody>
+</table>
+
+<script>
+  myStorage = localStorage;
+  localStorage.setItem('myCat', 'Tom');
+  var cat = localStorage.getItem("myCat");
+  console.log(cat);
+  function myfunc() {
+  var item = document.getElementsById("blankCheckbox");
+  console.log(item);
+}
+</script>
